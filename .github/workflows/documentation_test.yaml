@@ -1,0 +1,49 @@
+name: Documentation Tests
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'README.md'
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - 'README.md'
+
+jobs:
+  test-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install textlint and plugins
+        run: |
+          npm install -g textlint textlint-rule-common-misspellings textlint-rule-grammar textlint-rule-write-good
+
+      - name: Check spelling and grammar
+        run: textlint README.md
+
+      - name: Install markdown-link-check
+        run: npm install -g markdown-link-check
+
+      - name: Check links in the README
+        run: markdown-link-check README.md
+
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli
+
+      - name: Lint Markdown files
+        run: markdownlint README.md
+
+      - name: Check readability
+        run: textlint --rule write-good README.md
