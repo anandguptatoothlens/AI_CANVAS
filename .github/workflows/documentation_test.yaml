@@ -13,7 +13,6 @@ on:
       - master
     paths:
       - 'README.md'
-
 jobs:
   test-readme:
     runs-on: ubuntu-latest
