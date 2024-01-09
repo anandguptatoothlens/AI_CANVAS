@@ -1,0 +1,16 @@
+# .github/workflows/broken_links.yml
+name: Broken Links
+#Trigger: [push, pull_request] events
+on: [push, pull_request]
+#The workflow defines a single job named "build" that runs on the latest version of the Ubuntu environment.
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run broken link checker
+      uses: JustinBeckwith/linkinator-action@v1
+      with:
+        paths: '**/*.md'

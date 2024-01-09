@@ -1,0 +1,32 @@
+# .github/workflows/ci.yml
+name: CI
+
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    #test
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    #test Flake8 is a Python linting tool that checks your Python codebase for errors, styling issues and complexity. and lint  check for syntax validity, but for weirdnesses like key repetition and cosmetic problems such as lines length, trailing spaces, indentation,
+    #--count: Displays only the total count of errors and warnings. --select=E9,F63,F7,F82: Selects specific error or warning types to check for. In this case, it checks for E9 (syntax errors), F63 (undefined names), F7 (violations of the F7xx rules), and F82 (local variable names shadowing names imported from the standard library)
+    #--show-source: Shows the source code for each error.
+    #--statistics: Displays additional statistics about the number of errors and warnings.
+    #--exit-zero: Exits with a status code of 0 even if there are errors.
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        # test
