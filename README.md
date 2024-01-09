@@ -20,7 +20,7 @@ This is a simple project designed for testing documentation using GitHub Actions
 To install the project, follow these steps:
 
 ```bash
-npm install my-project
+pip install numpy
 
 
 Now, you can use this modified `README.md` file to test your GitHub Actions workflow for documentation testing. The intentional issues should fail the tests. Adjust or add more issues as needed for thorough testing.
