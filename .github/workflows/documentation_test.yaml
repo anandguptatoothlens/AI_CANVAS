@@ -31,7 +31,7 @@ jobs:
           npm install textlint textlint-rule-common-misspellings textlint-rule-no-dead-link textlint-rule-terminology textlint-rule-write-good --save-dev
 
       - name: Configure textlint
-        run: echo "rules:\n  terminology: true\n  common-misspellings: true\n  write-good:\n    adverb: false\n    passive: false\n    tooWordy: false\n    weasel: false\n  no-dead-link: true" > .textlintrc.yml
+        run: echo "rules:\n  terminology: true\n  common-misspellings: true\n  write-good:\n    adverb: false\n    passive: false\n    tooWordy: false\n    weasel: false\n  no-dead-link: true" > .documentation_test.yaml
 
       - name: Check spelling and grammar
         run: npx textlint README.md
