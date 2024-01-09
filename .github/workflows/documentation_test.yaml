@@ -28,10 +28,13 @@ jobs:
 
       - name: Install textlint and plugins
         run: |
-          npm install -g textlint textlint-rule-common-misspellings textlint-rule-grammar textlint-rule-write-good
+          npm install textlint textlint-rule-common-misspellings textlint-rule-no-dead-link textlint-rule-terminology textlint-rule-write-good --save-dev
+
+      - name: Configure textlint
+        run: echo "rules:\n  terminology: true\n  common-misspellings: true\n  write-good:\n    adverb: false\n    passive: false\n    tooWordy: false\n    weasel: false\n  no-dead-link: true" > .textlintrc.yml
 
       - name: Check spelling and grammar
-        run: textlint README.md
+        run: npx textlint README.md
 
       - name: Install markdown-link-check
         run: npm install -g markdown-link-check
@@ -46,4 +49,4 @@ jobs:
         run: markdownlint README.md
 
       - name: Check readability
-        run: textlint --rule write-good README.md
+        run: npx textlint --rule write-good README.md
